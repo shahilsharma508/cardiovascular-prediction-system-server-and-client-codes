@@ -1,0 +1,151 @@
+#Shahil Sharma
+#A00152049
+#code used to create the main server
+import socket
+import threading
+import json
+import pandas as pd
+
+HEADER = 1054 #first client msg bytes
+PORT = 443 #lookup diffrent ports
+SERVER = socket.gethostbyname(socket.gethostname()) #get server ip address
+
+ADDR = (SERVER,PORT) # put server and port in tuple
+FORMAT = 'utf-8'
+DISCONNECT_MESSAGE = "!DISCONNECT"
+
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #stream data throught the socket
+server.bind(ADDR) #bind server and port to socket
+
+def handle_client(conn, addr,clf): # this function would run for each cleint
+    print(f"[NEW CONNECTION] {addr} connected.")
+    return_risk_msg = "default text"
+
+    connected = True
+    while connected:  #wait for message from cleint and react to that
+           msg_length = conn.recv(HEADER).decode(FORMAT) #decode from bytes to string
+           if msg_length:
+               msg_length = int(msg_length)
+               msg = conn.recv(msg_length).decode(FORMAT)              
+               if msg == DISCONNECT_MESSAGE:
+                   connected = False
+                   print(f"[{addr}] {msg}") #print client addr and msg
+               elif  msg != DISCONNECT_MESSAGE: 
+                receive_list = json.loads(msg)
+                predicted_value = clf.predict([receive_list])
+                
+                if predicted_value[0] == 1:
+                    return_risk_msg = "Risk level 1 <10%"
+                elif predicted_value[0] == 2:
+                    return_risk_msg = "Risk level 2 10% to <20%"
+                elif predicted_value[0] == 3:
+                    return_risk_msg = "Risk level 3 20% to <30%"
+                elif predicted_value[0] == 4:
+                    return_risk_msg = "Risk level 4 30% to <40%"
+                elif predicted_value[0] == 5:
+                    return_risk_msg = "Risk level 5 =>50%"
+                    
+                #print(predicted_value.ndim)
+                print(f"[{addr}] {predicted_value[0]}") #print client addr and msg
+                conn.send(return_risk_msg.encode(FORMAT))
+    
+    conn.close() #close connection for client
+
+
+
+
+def start(clf): #function to listen for connections from cleint and pass message to handle_client
+    server.listen() #start listeing
+    print(f"[LISTENING] SERVER is listening on {SERVER}")
+    while True:  #keep on listeing to connections until server is stopped
+        conn, addr = server.accept()   #conn allows to comunicate and send object to cleint addr refers to what port and ip address
+        thread = threading.Thread(target = handle_client, args = (conn,addr,clf))
+        thread.start()  #create seprate thread for client and send data to handle_client
+        print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 1}   ")
+        
+           
+        #shows active connections and -1 because def start() is thread itself
+
+def supervised_learning_model(df):
+    print("[CONSTRUCTING] please wait while model is constructed......")
+    features = ['age','sex','blood pressure','cholesterol','diabetes','smoking status']
+    X = df[features]
+    y = df['risk level']
+    model = RandomForestClassifier(n_estimators = 100, criterion='entropy')
+    model = model.fit(X.values, y.values)
+    print('[MODEL IS READY!!]')
+    return model
+
+def data_pre_processing():
+
+    def convert_catergorical_data(df):
+      sex_encoder = preprocessing.LabelEncoder()
+      df['Sex'] = sex_encoder.fit_transform(df['Sex'])
+      return df
+
+    def remove_duplicates(df):
+       count_duplicates = df.duplicated().sum()
+       print("duplicated values = " , count_duplicates)
+       df = df.drop_duplicates()
+       if df.duplicated().sum() == 0:
+        print("duplicates sucessfully removed")
+      else:
+        print("dataset still contains duplicates")
+      return df
+
+
+    def standardScaler(df):
+         from sklearn.preprocessing import StandardScaler
+         feature_variables = ['Age','BP','Cholesterol']
+         X = df[feature_variables]
+         feature_scaler = StandardScaler()
+         feature_scaler.fit(X)
+         scaled_features = feature_scaler.transform(X)
+         df[['Age','BP','Cholesterol']] = scaled_features 
+         return df
+
+    def remove_missing_values(df):
+        df = df.dropna()
+        return df
+
+    def remove_outliers(df):
+        feature_variables = ['Age','Sex','BP','Cholesterol','diabetes']
+        for x in range(len(feature_variables)):
+            current_attribute_reference = feature_variables[x]           
+            Q1 = np.percentile(df[current_attribute_reference], 25)
+            Q3 = np.percentile(df[current_attribute_reference], 75)
+            IQR = Q3 - Q1
+            lower_bound = Q1 - 1.5*IQR
+            upper_bound = Q3 + 1.5*IQR
+            df = df[(df[current_attribute_reference]>= lower_bound)
+                    & (df[current_attribute_reference]<= upper_bound)]
+            
+            return df
+
+
+    df = pd.read_csv('labelled.csv')
+    #check if Sex column for M and F values to void errors
+    check_Male = (df['Sex'] == 'M').any()
+    check_Female = (df['Sex'] == 'F').any()
+    if check_Male and check_Female:
+        df1 = convert_catergorical_data(df)
+        df2 = remove_duplicates(df1)
+        df3 = standardScaler(df2)
+        df4 = remove_missing_values(df3)
+        df5 = remove_outliers(df4)
+    else:
+        df2 = remove_duplicates(df)
+        df3 = standardScaler(df2)
+        df4 = remove_missing_values(df3)
+        df5= remove_outliers(df4)
+    
+    return df5    
+    
+
+#pre-process data, construct model and send to open connections
+
+print("[STARING] server is starting......")
+clean_data = data_pre_processing()
+model = supervised_learning_model(clean_data)
+start(model)
+

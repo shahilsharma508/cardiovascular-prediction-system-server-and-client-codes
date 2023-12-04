@@ -1,0 +1,977 @@
+#Shahil Sharma
+#A00152049
+#Code used for unsupervised learning phase
+
+
+def cluster_data(df):
+    def domain_defined_centroid(df):
+ 
+      from sklearn.cluster import KMeans
+      from sklearn.metrics import silhouette_score
+      # with cholestrol dataframes
+      df1 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])          
+      df2 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df3 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df4 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df5 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df6 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df7 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df8 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      df9 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df10 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df11 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df12 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      df13 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df14 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df15 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df16 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      df17 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df18 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df19 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df20 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      df21 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df22 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df23 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df24 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      df25 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df26 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df27 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df28 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      df29 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df30 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df31 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df32 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      #no cholestrol dataframes
+      df33 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])          
+      df34 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df35 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df36 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df37 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df38 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df39 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df40 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      df41 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df42 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df43 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df44 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      df45 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df46 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df47 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df48 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      df49 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df50 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df51 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df52 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      df53 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df54 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df55 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df56 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      df57 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df58 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df59 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df60 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      df61 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df62 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df63 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']) 
+      df64 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status'])
+      
+        
+      for x in df.index:
+       if df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 1
+       and df['diabetes status'][x] == 1
+       and df['smoking status'][x] == 0
+       and df['cholesterol'][x] !=0 :
+       row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x],
+            df['diabetes status'][x],df['smoking status'][x]]
+            df1.loc[len(df1)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df2.loc[len(df2)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df3.loc[len(df3)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df4.loc[len(df4)] = row
+               #column 1 done**************************************************************************************************************************
+                  
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df5.loc[len(df5)] = row
+
+              elif  df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0:
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df6.loc[len(df6)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df7.loc[len(df7)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df8.loc[len(df8)] = row
+              #column 2 done**************************************************************************************************************************
+
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df9.loc[len(df9)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df10.loc[len(df10)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df11.loc[len(df11)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df12.loc[len(df12)] = row 
+
+               #column 3 done*********************************************************************************************************************
+
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df13.loc[len(df13)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df14.loc[len(df14)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df15.loc[len(df15)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df16.loc[len(df16)] = row
+
+               #column 4 done*********************************************************************************************************************
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df17.loc[len(df17)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df18.loc[len(df18)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df19.loc[len(df19)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df20.loc[len(df20)] = row
+
+              #column 5 done*********************************************************************************************************************
+
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df21.loc[len(df21)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df22.loc[len(df22)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df23.loc[len(df23)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df24.loc[len(df24)] = row
+
+              #column 6 done*********************************************************************************************************************
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df25.loc[len(df25)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df26.loc[len(df26)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df27.loc[len(df27)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df28.loc[len(df28)] = row  
+
+              #column 7 done*********************************************************************************************************************
+
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df29.loc[len(df29)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df30.loc[len(df30)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df31.loc[len(df31)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] !=0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df32.loc[len(df32)] = row
+
+
+              #dataframe with no cholestrol 
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df33.loc[len(df33)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df34.loc[len(df34)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df35.loc[len(df35)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df36.loc[len(df36)] = row
+               #column 1 done**************************************************************************************************************************
+                  
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df37.loc[len(df37)] = row
+
+              elif  df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0:
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df38.loc[len(df38)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df39.loc[len(df39)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 1 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df40.loc[len(df40)] = row
+              #column 2 done**************************************************************************************************************************
+
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df41.loc[len(df41)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df42.loc[len(df42)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df43.loc[len(df43)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df44.loc[len(df44)] = row 
+
+               #column 3 done*********************************************************************************************************************
+
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df45.loc[len(df45)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df46.loc[len(df46)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df47.loc[len(df47)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 0 and df['diabetes status'][x] == 1 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df48.loc[len(df48)] = row
+
+               #column 4 done*********************************************************************************************************************
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df49.loc[len(df49)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df50.loc[len(df50)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df51.loc[len(df51)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df52.loc[len(df52)] = row
+
+              #column 5 done*********************************************************************************************************************
+
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df53.loc[len(df53)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df54.loc[len(df54)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df55.loc[len(df55)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 1 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df56.loc[len(df56)] = row
+
+              #column 6 done*********************************************************************************************************************
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df57.loc[len(df57)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df58.loc[len(df58)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df59.loc[len(df59)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 0 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df60.loc[len(df60)] = row  
+
+              #column 7 done*********************************************************************************************************************
+
+              elif df['age'][x]>=70 and  df['age'][x]<=79 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df61.loc[len(df61)] = row
+
+              elif df['age'][x]>=60 and  df['age'][x]<=69 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df62.loc[len(df62)] = row
+
+              elif df['age'][x]>=50 and  df['age'][x]<=59 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df63.loc[len(df63)] = row
+
+              elif df['age'][x]>=0 and  df['age'][x]<=49 and df['sex'][x] == 0 and df['diabetes status'][x] == 0 and df['smoking status'][x] == 1 and df['cholesterol'][x] ==0 :
+                  row = [df['age'][x] ,df['sex'][x],df['blood pressure'][x], df['cholesterol'][x], df['diabetes status'][x],df['smoking status'][x]]
+                  df64.loc[len(df64)] = row
+
+
+     
+
+ 
+      #individual K-means model for the 64 dataframes were created please do not change the parameter values as they are adjusted according to the data used in the study.
+      def kmeans_for_df1(df1):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df1[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+      def kmeans_for_df2(df2):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df2[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=20, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+      def kmeans_for_df3(df3):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df3[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+      def kmeans_for_df4(df4):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df4[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+      def kmeans_for_df5(df5):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df5[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+     def kmeans_for_df6(df6):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df6[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+      def kmeans_for_df7(df7):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df7[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=10)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+      def kmeans_for_df8(df8):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df8[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+     def kmeans_for_df9(df9):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df9[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+      def kmeans_for_df10(df10):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df10[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+       def kmeans_for_df11(df11):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df11[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=15, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+      def kmeans_for_df12(df12):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df12[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=15, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+       def kmeans_for_df13(df13):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df13[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df14(df14):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df14[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+        def kmeans_for_df15(df15):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df15[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+        def kmeans_for_df16(df16):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df16[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df17(df17):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df17[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=15, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+         def kmeans_for_df18(df18):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df16[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+        def kmeans_for_df19(df19):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df19[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df20(df20):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df20[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=20, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df21(df21):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df21[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df22(df22):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df22[features]
+          kmeans_classifier = KMeans(n_clusters=3, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df23(df23):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df23[features]
+          kmeans_classifier = KMeans(n_clusters=3, init='k-means++', max_iter=10, n_init=10)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df24(df24):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df24[features]
+          kmeans_classifier = KMeans(n_clusters=3, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df25(df25):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df25[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=15, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df26(df26):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df26[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df27(df27):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df27[features]
+          kmeans_classifier = KMeans(n_clusters=3, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df28(df28):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df28[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+        def kmeans_for_df29(df29):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df29[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df30(df30):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df30[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df31(df31):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df31[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+        def kmeans_for_df32(df32):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df32[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+        def kmeans_for_df33(df33):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df33[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+         def kmeans_for_df34(df34):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df34[features]
+          kmeans_classifier = KMeans(n_clusters=3, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+         def kmeans_for_df35(df35):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df35[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+         def kmeans_for_df36(df36):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df36[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df37(df37):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df37[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+        def kmeans_for_df38(df38):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df38[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+        def kmeans_for_df39(df39):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df39[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df40(df40):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df40[features]
+          kmeans_classifier = KMeans(n_clusters=3, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+        def kmeans_for_df41(df41):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df41[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+        def kmeans_for_df42(df42):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df42[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df43(df43):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df43[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df44(df44):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df44[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+        def kmeans_for_df45(df45):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df45[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df46(df46):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df46[features]
+          kmeans_classifier = KMeans(n_clusters=2, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df47(df47):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df47[features]
+          kmeans_classifier = KMeans(n_clusters=2, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df48(df48):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df48[features]
+          kmeans_classifier = KMeans(n_clusters=3, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df49(df49):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df49[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df50(df50):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df50[features]
+          kmeans_classifier = KMeans(n_clusters=3, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df51(df51):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df51[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df52(df52):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df52[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df53(df53):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df53[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df54(df54):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df54[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+        def kmeans_for_df55(df55):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df55[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+
+        def kmeans_for_df56(df56):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df56[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df57(df57):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df57[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df58(df58):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df58[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df59(df59):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df59[features]
+          kmeans_classifier = KMeans(n_clusters=5, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df60(df60):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df60[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df61(df61):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df61[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df62(df62):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df62[features]
+          kmeans_classifier = KMeans(n_clusters=3, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df63(df63):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df63[features]
+          kmeans_classifier = KMeans(n_clusters=4, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+
+        def kmeans_for_df64(df64):        
+          #method using kmeans ++
+          features = ['age','sex','blood pressure','cholesterol','diabetes status','smoking status']
+          X = df64[features]
+          kmeans_classifier = KMeans(n_clusters=3, init='k-means++', max_iter=10, n_init=5)
+          kmeans_classifier.fit(X)
+          labeled_clusters = kmeans_classifier.predict(X)   
+          df1['risk levels'] = labeled_clusters #this doesnt create labeled clusters use the method defined in the thesis to label clusters
+        
+
+        
+
+        
+
+        
+          
+             
+      
+          
+      kmeans_for_df1(df1)      
+     
+     
+    domain_defined_centroid(df)
+        

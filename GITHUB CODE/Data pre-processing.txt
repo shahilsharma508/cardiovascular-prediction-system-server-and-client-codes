@@ -1,0 +1,292 @@
+#Shahil Sharma A00152049
+#Codes used in data pre-processing stage
+import pandas as pd
+from sklearn import preprocessing
+import numpy as np
+def read_csv():
+ df = pd.read_csv('num1.csv')
+ #print(df)
+ return df
+
+def convert_catergorical_data(df):
+    
+    #convert using label encoder
+    sex_encoder = preprocessing.LabelEncoder()
+    df['Sex'] = sex_encoder.fit_transform(df['Sex'])
+    
+    #encoding using onehot encoder
+    sex_column = df['Sex']
+    encoded_sex = pd.get_dummies(sex_column, prefix='Sex')
+    encoded_df = pd.concat([df, encoded_sex], axis=1)    
+    
+    #encoding using binary encoding
+    import category_encoders as encoder
+    sex_encoder = encoder.BinaryEncoder(cols=['Sex'])
+    encoded_sex_data = sex_encoder.fit_transform(df['Sex'])
+    encoded_df = pd.concat([df, encoded_sex_data], axis=1)   
+    return df
+        
+def convert_columns(df):
+    #drop and rename columns according to cardiovascular therapeutic guidelines 
+    df_1= df.drop(columns = ['ChestPainType','RestingECG',
+                             'ExerciseAngina','MaxHR',
+                             'Oldpeak','ST_Slope'])
+    df_2 = df_1.rename(columns={'RestingBP': 'BP',
+                                'FastingBS': 'diabetes'})    
+    return df_2
+    
+def check_correlation(df):
+     corr_matrix = df1.corr()
+     import seaborn as sns
+     import matplotlib.pyplot as plt
+     sns.heatmap(corr_matrix, annot=True, cmap='coolwarm')
+     plt.show()
+     
+def remove_missing_values(df):
+    
+    #check and print missing values
+    empty_row_count_1 = df.isnull().sum()
+    print(type(empty_row_count_1))
+    
+    #count number of rows where Cholesterol = 0
+    missing_values_cholestrol = (df['Cholesterol'] == 0).sum()
+    print(missing_values_cholestrol)
+    #count number of rows where BP = 0
+    missing_values_BP =  (df['BP'] == 0).sum()
+    print(missing_values_BP)
+    #count number of rows where Age = 0
+    missing_values_age = (df['Age'] == 0).sum()
+    print(missing_values_missing_values_age)
+    
+    #solve empty values using data imputation method
+    #using mean for numerical values
+    
+    non_zero_age = df[df['Age'] != 0]
+    mean_age = round(non_zero_age['Age'].mean())
+    df['Age'].fillna(mean_age, inplace=True)
+    df['Age'] = df['Age'].replace(0, mean_age)
+    
+    non_zero_bp = df[df['BP'] != 0]
+    mean_BP = round(non_zero_age['BP'].mean())
+    df['BP'].fillna(mean_BP, inplace=True)
+    df['BP'] = df['BP'].replace(0, mean_BP)
+    
+    non_zero_cholestrol = df[df['cholestrol'] != 0]
+    mean_cholestrol = round(non_zero_age['cholestrol'].mean())
+    df['cholestrol'].fillna(mean_cholestrol, inplace=True)
+    df['cholestrol'] = df['cholestrol'].replace(0, mean_cholestrol)
+     
+    #using median for catergoical data
+    median_sex = df['Sex'].median()
+    df['Sex'].fillna(median_sex, inplace=True)
+    median_diabetes = df['diabetes'].median()
+    df['diabetes'].fillna(median_diabetes, inplace=True)
+
+     #using mode for catergoical data
+    mode_sex = df['Sex'].mode()[0]
+    df['Sex'].fillna(mode_sex, inplace=True)
+     #using mode for catergoical data
+    mode_diabetes  = df['diabetes'].mode()[0]
+    df['Sex'].fillna(mode_sex, inplace=True)
+ 
+    #drop rows with empty cells
+    df = df.dropna()
+    #check if missing values are removed or not
+    empty_row_count_2 = df[df.isnull().any(axis=1)]
+    print(empty_row_count_2)
+    
+    
+    # remove rows where Cholesterol = 0
+    df_1 = df.drop(index=df[df['Cholesterol'] == 0].index)
+    #check if rows are dropped or not
+    if len(missing_values_cholestrol) == 0:
+        print('rows removed sucessfully')
+    else:
+       print('rows not removed')
+
+    # remove rows where BP = 0
+    df_2 = df_1.drop(index=df[df['BP'] == 0].index)
+    #check if rows are dropped or not
+    if len(missing_values_cholestrol) == 0:
+        print('rows removed sucessfully')
+    else:
+       print('rows not removed')   
+    
+    # remove rows where Age = 0
+    df_3 = df_2.drop(index=df[df['Age'] == 0].index)
+    #check if rows are dropped or not
+    if len(missing_values_cholestrol) == 0:
+        print('rows removed sucessfully')
+    else:
+       print('rows not removed')   
+    
+    return df
+     
+def remove_outliers(df):
+    from scipy import stats
+    def z_score_technique(df):
+        print("Original Data Frame")
+        print(len(df))
+        feature_variables = ['Age','Sex','BP','Cholesterol','diabetes']
+        for x in range(len(feature_variables)):
+                current_attribute_reference = feature_variables[x]
+                Cal_Z_Score = np.abs(stats.zscore(df[current_attribute_reference]))
+                threshold_value = 3
+                df= df[Cal_Z_Score  < threshold_value]                
+                print('Cleaned Data Frame')
+                print(len(df))
+              
+    def IQR_technique(df):
+        print("Original Data Frame")
+        print(len(df))
+        feature_variables = ['Age','Sex','BP','Cholesterol','diabetes']
+        for x in range(len(feature_variables)):
+            current_attribute_reference = feature_variables[x]           
+            Q1 = np.percentile(df[current_attribute_reference], 25)
+            Q3 = np.percentile(df[current_attribute_reference], 75)
+            IQR = Q3 - Q1
+            lower_bound = Q1 - 1.5*IQR
+            upper_bound = Q3 + 1.5*IQR
+            df = df[(df[current_attribute_reference]>= lower_bound)
+                    & (df[current_attribute_reference]<= upper_bound)]
+            print('Cleaned Data Frame')
+            print(len(df))
+
+    def PCA_technique(df):
+        
+        features = ['Age','BP','Cholesterol']
+        X = df[features]
+        from sklearn.preprocessing import StandardScaler
+        feature_scaler = StandardScaler()
+        scaled_features = feature_scaler.fit_transform(X)
+        from sklearn.decomposition import PCA
+        pca_components = PCA(n_components=2)
+        pca_model = pca_components.fit_transform(scaled_features)
+        corv_matrix = np.cov(pca_model, rowvar=False)
+        pca_mean = np.mean(pca_model, axis=0)
+        mahalanobis_distance = np.sqrt(np.sum(np.dot((pca_model - pca_mean),
+                             np.linalg.inv(corv_matrix)) * (pca_model - pca_mean), axis=1))
+        outlier_threshold = np.percentile(mahalanobis_distance, 95)
+        cleaned_data_set= scaled_features[mahalanobis_distance < outlier_threshold]
+        print("Original Data Frame")
+        print(len(df))
+        print('Cleaned Data Frame')
+        print(len(cleaned_data_set))
+        print(cleaned_data_set)
+        return cleaned_data_set 
+    #call function one after the other                
+    #test zscore
+    #z_score_technique(df)            
+    # test IQR
+    #IQR_technique(df)
+    #test pca
+    df_return =PCA_technique(df)
+    return df_return
+
+def convert_cholestrol(df):
+ #convert cholestrol from mg / dl to mmol/l  
+   cal_chol = []
+   for x in df['Cholesterol']:
+      val = round(x * 0.02586)
+      cal_chol.append(val)
+   df_1 = df.drop('Cholesterol',axis=1)
+   df_1.insert(3,'Cholesterol',cal_chol,True)
+   return(df_1)
+
+def remove_duplicates(df):
+    count_duplicates = df.duplicated().sum()
+    print("duplicated values = " , count_duplicates)
+    df = df.drop_duplicates()
+    if df.duplicated().sum() == 0:
+        print("duplicates sucessfully removed")
+    else:
+        print("dataset still contains duplicates")
+    return df
+def scaling_numrical_data(df):
+     def standardScaler(df):
+         from sklearn.preprocessing import StandardScaler
+         feature_variables = ['Age','BP','Cholesterol']
+         X = df[feature_variables]
+         feature_scaler = StandardScaler()
+         feature_scaler.fit(X)
+         scaled_features = feature_scaler.transform(X)
+         df[['Age','BP','Cholesterol']] = scaled_features 
+         return df
+
+     def normalization_scaling(df):
+         from sklearn.preprocessing import MinMaxScaler
+         feature_variables = ['Age','BP','Cholesterol']
+         X = df[feature_variables]
+         feature_scaler = MinMaxScaler()
+         normalized_features = feature_scaler.fit_transform(X)
+         df[['Age','BP','Cholesterol']] = normalized_features         
+         return df
+
+     def log_transformation_scaling(df):
+           import numpy as np
+           feature_variables = ['Age','BP','Cholesterol']
+           X = df[feature_variables]
+           log_scaled_features = np.log(X)
+           df[['Age','BP','Cholesterol']] = log_scaled_features
+           return df
+         
+     def powerTransformer_scaling(df):
+            from sklearn.preprocessing import PowerTransformer
+            feature_variables = ['Age','BP','Cholesterol']
+            X = df[feature_variables]
+            transformer_scaler = PowerTransformer(method='yeo-johnson')
+            transformed_features = transformer_scaler.fit_transform(X)
+            print("Original features:\n", pd.DataFrame(df, columns=['Age','BP','Cholesterol']).head())
+            df[['Age','BP','Cholesterol']] = transformed_features
+            print("\n Power Transformed features:\n", pd.DataFrame(transformed_features, columns=['Age','BP','Cholesterol']).head())
+            return df
+
+     def robust_Scaling(df):
+           from sklearn.preprocessing import RobustScaler
+           feature_variables = ['Age','BP','Cholesterol']
+           X = df[feature_variables]
+           robust_feature_scaler = RobustScaler()
+           robust_scaled_features = robust_feature_scaler.fit_transform(X)
+           print("Original features:\n", pd.DataFrame(df, columns=['Age','BP','Cholesterol']).head())
+           df[['Age','BP','Cholesterol']] = robust_scaled_features
+           print("\n Robust Scaled features:\n", pd.DataFrame(robust_scaled_features, columns=['Age','BP','Cholesterol']).head())
+           return df
+           
+       
+     df1 = standardScaler(df)
+     return(df1)
+     #normalization_scaling(df)
+     #log_transformation_scaling(df)
+     #powerTransformer_scaling(df)
+     #robust_Scaling(df)
+            
+            
+def handle_smoking_data(df):
+     df_1 = pd.DataFrame(columns = ['age','sex','blood pressure','cholesterol',
+                                    'diabetes status','smoking status'])
+     for x in df.index:
+         smoker = [df['Age'][x] ,df['Sex'][x],df['BP'][x],
+                   df['Cholesterol'][x], df['diabetes'][x],1]
+         df_1.loc[len(df_1)] = smoker
+         non_smoker = [df['Age'][x] ,df['Sex'][x],df['BP'][x],
+                       df['Cholesterol'][x], df['diabetes'][x],0]
+         df_1.loc[len(df_1)] = non_smoker
+
+     return df_1
+#Each function to be executed one after the after.
+
+df1 = read_csv()
+df2 = convert_columns(df1)
+df3 = convert_catergorical_data(df1)
+df2 = remove_duplicates(df1)
+df2 = drop_irrelevent_columns(df1)
+df2 = convert_cholestrol(df1)
+df4 = check_correlation(df3)
+df2 = remove_missing_values(df1)
+df3 = remove_outliers(df2)
+df3 = scaling_numrical_data(df2)
+df_4 = handle_smoking_data(df2)
+df_5 = check_correlation(df_4)
+df4 = remove_outliers(df2)
+df_2.to_csv(r'C:\Users\a00152049\Desktop\actual data-preprocessind\test.csv', index = False) #replace with your file directory
+#print(df2.corr())
